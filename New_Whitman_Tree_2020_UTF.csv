@@ -1,4 +1,4 @@
-Waypoint,Latitude,Longitude,Alt_ft,Tree_ID,Zone,Tree_Number,Group,Leaf_Fall,Common_Name,Genus,Species_Name,Family,Origin,Age_Class,CBH,DBH,Tree_Height_ft,Canopy_Radius_ft,Root_Zone_Infringement,Condition_Class,Priority,Interest_Houses,Trust_Prop,Trust_Prop_Address,Champion_Tree,Memorial_Tree,Blue_Mtn_Native,Pacific_Slope_Native,Staked ,Comments
+Waypoint,Latitude,Longitude,Alt_ft,Tree_ID,Zone,Tree_Number,Group_,Leaf_Fall,Common_Name,Genus,Species_Name,Family,Origin,Age_Class,CBH,DBH,Tree_Height_ft,Canopy_Radius_ft,Root_Zone_Infringement,Condition_Class,Priority,Interest_Houses,Trust_Prop,Trust_Prop_Address,Champion_Tree,Memorial_Tree,Blue_Mtn_Native,Pacific_Slope_Native,Staked ,Comments
 1164,46.07275,-118.33053,976,A1,A,1,Broadleaf,Deciduous,Eastern Redbud,Cercis,Cercis canadensis,Fabaceae,,15-20,11,3.5,25,10,0.5,Removed,removed,,,,,,,,,
 1165,46.07273,-118.33056,994,A2,A,2,Broadleaf,Deciduous,Eastern Redbud,Cercis,Cercis canadensis,Fabaceae,,30-40,53,16.88,27,15,0.25,Fair,A,,,,,,,,,
 1166,46.07238,-118.33083,968,A3,A,3,Broadleaf,Deciduous,Yellowwood,Cladastris,Cladrastis lutea,Fabaceae,south eastern U.S.,20,28,8.92,20,5,0.5,Fair,B,,,,,,,,,
