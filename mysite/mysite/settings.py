@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -54,7 +55,7 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -75,10 +76,10 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backend.postgresql',
-        'NAME': '/var/lib/postgresql/12/main/treeIDdata',
-        'USER': 'ADMIN',
-        'PASSWORD': 'trees776',
+        "ENGINE":"django.db.backends.postgresql",
+        'NAME': 'treeiddata',
+        'USER': 'admin',
+        'PASSWORD': 'LltreesCapstonepass001982763--_=',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
