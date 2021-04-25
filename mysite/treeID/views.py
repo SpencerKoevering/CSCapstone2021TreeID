@@ -23,12 +23,8 @@ def get_query(request):
     return render(request, 'query.html', {'form': form})
 
 def index(request):
-	query = str(request.POST.get('query'))
-	cursor = connection.cursor()
-	cursor.execute(query)
-	return HttpResponse(cursor.fetchall())
-
-# def index(request):
-# 	cursor = connection.cursor()
-# 	cursor.execute("SELECT * FROM treedata;")
-# 	return HttpResponse(cursor.fetchall())
+    ID = str(request.POST.get('query'))
+    query = "SELECT * FROM treedata WHERE tree_id='"+ID+"';"
+    cursor = connection.cursor()
+    cursor.execute(query)
+    return HttpResponse(cursor.fetchall())
