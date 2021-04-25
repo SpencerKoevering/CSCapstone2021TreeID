@@ -1,4 +1,4 @@
 from django import forms
 
 class QueryForm(forms.Form):
-    query = forms.CharField(label='query', max_length=100)
+    query = forms.CharField(label='Tree ID', max_length=100)
