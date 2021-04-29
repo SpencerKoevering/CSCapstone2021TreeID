@@ -24,7 +24,7 @@ def get_query(request):
 
 def index(request):
     ID = str(request.POST.get('query'))
-    query = "SELECT * FROM treedata WHERE tree_id='"+ID+"';"
+    query = "SELECT * FROM treedata WHERE tree_id=%s"
     cursor = connection.cursor()
-    cursor.execute(query)
+    cursor.execute(query,[ID])
     return HttpResponse(cursor.fetchall())
