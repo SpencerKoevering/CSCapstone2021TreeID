@@ -3,7 +3,7 @@
 <h2>Whitman Tree Information</h2>
 <h3>Look for a small green tag on a tree:</h3>
 <p>*green tag photo here</p>
-<form action="/treeID/query/" method="post">
+<form action="/treeID/query_response/" method="post">
   {% csrf_token %}
   {{ form }}
   <input type="submit" value="Submit"><br>
