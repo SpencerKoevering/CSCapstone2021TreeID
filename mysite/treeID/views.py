@@ -1,3 +1,4 @@
+from treeID.models import Comment
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.db import connection
@@ -58,14 +59,24 @@ def index(request):
     return TemplateResponse(request, 'ID_response.html', context_dict)
 
 def comment_handler(request):
-    comment = str(request.POST.get('comment'))
-    photo_name = request.POST.get('photo')
+    ID = str(request.POST.get('ID'))
+    comment_text = str(request.POST.get('comment'))
     can_contact = request.POST.get('can_contact')
     if can_contact == "on":
         can_contact = True
     else:
         can_contact = False
     contact_info = request.POST.get('contact_info')
-    print(photo_name)
-    print(request.FILES)
+    save = request.POST.get('save')
+    # print(request.FILES)
+    # print(request.FILES["photo"])
+    comment = Comment()
+    comment.ID = ID
+    comment.comment_text = comment_text
+    comment.can_contact = can_contact
+    comment.contact_info= contact_info
+    if len(request.FILES) == 1:
+        comment.photo= request.FILES["photo"]
+    if save:
+        comment.save()
     return HttpResponseRedirect('/treeID/query/')
