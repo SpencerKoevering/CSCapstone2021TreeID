@@ -1,3 +1,5 @@
+
+
 """
 Django settings for mysite project.
 
@@ -12,7 +14,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,13 +22,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-wh*hj5cwu#_ejpu+63t(*enbxp)y2-_5vgezpufe#3r^c5v#xo'
+SECRET_KEY = 'django-insecure-a1q643#5#ngb5hzb#j1jw0o3yee+q-(6w)iw8yyg(+)vbxx!^5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'treeID',
 ]
 
 MIDDLEWARE = [
@@ -76,10 +77,10 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        "ENGINE":"django.db.backends.postgresql",
+        'ENGINE': "django.db.backends.postgresql",
         'NAME': 'treeiddata',
-        'USER': 'admin',
-        'PASSWORD': 'LltreesCapstonepass001982763--_=',
+        'USER': 'postgres',
+        'PASSWORD': 'capstone',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
@@ -128,3 +129,6 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

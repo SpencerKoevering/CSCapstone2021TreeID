@@ -6,6 +6,7 @@ from django.shortcuts import render
 from .forms import QueryForm
 from .forms import CommentForm
 from django.template.response import TemplateResponse
+from django.views.generic.list import ListView
 
 def get_query(request):
     # if this is a POST request we need to process the form data
@@ -80,3 +81,15 @@ def comment_handler(request):
     if save:
         comment.save()
     return HttpResponseRedirect('/treeID/query/')
+
+class CommentListView(ListView):
+    model = Comment
+
+    def get_context_data(self, *args, **kwargs):
+        comments = Comment.objects.all()
+        #print(str(BASE_DIR) + str(comments[0].photo))
+        context = {'comments': comments}
+        for comment in comments:
+            print(comment.photo)
+        return context
+    
