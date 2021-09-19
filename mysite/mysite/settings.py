@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'treeID',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -78,8 +79,8 @@ DATABASES = {
     'default': {
         "ENGINE":"django.db.backends.postgresql",
         'NAME': 'treeiddata',
-        'USER': 'admin',
-        'PASSWORD': 'LltreesCapstonepass001982763--_=',
+        'USER': 'test_user',
+        'PASSWORD': 'puXgRLjc3mqmVbS',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }

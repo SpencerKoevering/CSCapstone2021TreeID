@@ -10,20 +10,3 @@ class Comment(models.Model):
     can_contact = models.BooleanField()
     contact_info = models.CharField(max_length=50)
     photo = models.ImageField(upload_to='tree_photos')
-
-# class Tree(models.Model):
-#     ID = models.TextField()
-#     Latitude = model.FloatField()
-#     Longitude = model.FloatField()
-#     Altitude = model.IntegerField()
-#     Group = models.TextField()
-#     Leaf_Fall = models.TextField()
-#     Common_Name = models.TextField()
-#     Genus = models.TextField()
-#     Species_Name = models.TextField()
-#     Family = models.TextField()
-#     Age_min = models.IntegerField()
-#     Age_max = models.IntegerField()
-#     Height_max = models.IntegerField()
-#     Height_min = models.IntegerField()
-    

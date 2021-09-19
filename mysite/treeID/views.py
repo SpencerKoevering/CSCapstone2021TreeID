@@ -1,3 +1,4 @@
+from mysite.settings import BASE_DIR
 from treeID.models import Comment
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
@@ -6,6 +7,7 @@ from django.shortcuts import render
 from .forms import QueryForm
 from .forms import CommentForm
 from django.template.response import TemplateResponse
+from django.views.generic.list import ListView
 
 def get_query(request):
     # if this is a POST request we need to process the form data
@@ -80,3 +82,16 @@ def comment_handler(request):
     if save:
         comment.save()
     return HttpResponseRedirect('/treeID/query/')
+
+class CommentListView(ListView):
+    model = Comment
+
+    def get_context_data(self, **kwargs):
+        comments = list(Comment.objects.all())
+        topass = []
+        for i in range(len(comments)):
+            path = str(BASE_DIR) +"/"+ str(comments[i].photo)
+            topass.append([comments[i], path])
+        print(topass)
+        context = {'comments': topass}
+        return context
