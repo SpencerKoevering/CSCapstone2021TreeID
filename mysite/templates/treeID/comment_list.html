@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<body>
+<header>
+  <h1>Whitman College Tree ID</h1>
+  <h2>Comment Form:</h2>
+
+{% for comment, imagepath in comments %}
+    <li>{{entry.ID}} {{comment.comment_text}} {{comment.can_contact}} {{comment.contact_info}} <img src={{imagepath}} > </li>
+{% empty %}
+    <li>No comments yet</li>
+{% endfor %}
+
+</header>
+</body>
+</html>
