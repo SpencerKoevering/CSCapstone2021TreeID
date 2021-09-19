@@ -8,6 +8,8 @@ from .forms import QueryForm
 from .forms import CommentForm
 from django.template.response import TemplateResponse
 from django.views.generic.list import ListView
+def redirect(query):
+    return HttpResponseRedirect('/treeID/query/')
 
 def get_query(request):
     # if this is a POST request we need to process the form data
@@ -86,12 +88,11 @@ def comment_handler(request):
 class CommentListView(ListView):
     model = Comment
 
-    def get_context_data(self, **kwargs):
-        comments = list(Comment.objects.all())
-        topass = []
-        for i in range(len(comments)):
-            path = str(BASE_DIR) +"/"+ str(comments[i].photo)
-            topass.append([comments[i], path])
-        print(topass)
-        context = {'comments': topass}
+    def get_context_data(self, *args, **kwargs):
+        comments = Comment.objects.all()
+        #print(str(BASE_DIR) + str(comments[0].photo))
+        context = {'comments': comments}
+        for comment in comments:
+            print(comment.photo)
         return context
+    

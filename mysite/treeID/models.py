@@ -9,4 +9,5 @@ class Comment(models.Model):
     comment_text = models.TextField()
     can_contact = models.BooleanField()
     contact_info = models.CharField(max_length=50)
-    photo = models.ImageField(upload_to='tree_photos')
+    photo = models.ImageField(upload_to='media/tree_photos')
+
