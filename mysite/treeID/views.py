@@ -8,6 +8,9 @@ from .forms import CommentForm
 from django.template.response import TemplateResponse
 from django.views.generic.list import ListView
 
+def redirect(query):
+    return HttpResponseRedirect('/treeID/query/')
+
 def get_query(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
