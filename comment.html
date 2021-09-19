@@ -9,42 +9,55 @@
 <!-- Source: https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Transformations -->
 <header>
   <h1>Whitman College Tree ID</h1>
-  <h2>Comment From:</h2>
+  <h2>Comment Form:</h2>
 </header>
 
- <form action="/comment_submit.js">
-  <form id="form"> 
-  <input type="search" id="query" name="q" placeholder="Example ID: T63">
-  <button>Search</button> <br/>
+  <div>
+    <form action="/comment_submit.js">
+    <form id="form"> 
+    <input type="search" id="query" name="q" placeholder="Example ID: T63">
+    <button>Search</button> 
+  </div>
 
-  <label for="comments">Comments:</label>
-  <input type="text" id="comments" name="comments"><br><br>
-  <label for="photo">Photo:</label>
-  <input type="file" id="photo" name="photo"><br><br>
-  <label for="contact_bool">Can we contact you for further information?</label>
-  <input type="radio" id="yes" name="contact_bool">
-  <label for="yes">Yes</label>
-  <input type="radio" id="no" name="contact_bool">
-  <label for="no">No</label>
-    
-<div class="reveal-if-active">
-  <label for="contact_info">Contact Info:</label>
-  <input type="text" id="contact_info" name="contact_info"><br><br>
-</div>
+  <div class="comment input field">
+    <label for="comments">Comments:</label>
+    <br>
+    <input type="text" id="comments" name="comments"> 
+  </div>
+  
+  <div class="photo upload button">
+    <label for="photo">Photo:</label>
+    <input type="file" id="photo" name="photo">
+  </div>
+  
+  <div>
+    <label for="contact bool">Can we contact you for further information?</label>
+    <br>
+    <input type="radio" id="yes" name="contact_bool">
+    <label for="yes">Yes</label>
+    <input type="radio" id="no" name="contact_bool">
+    <label for="no">No</label>
+  </div>
 
-<div class="inline">
-  <button>Confirm</button>
-  <button>Cancel</button>
-</div>
-<br/>
-<small id="database_updated"> Database last updated: ... </small>
+  <div class="reveal-if-active">
+    <label for="contact_info">Contact Info:</label>
+    <input type="text" id="contact_info" name="contact_info">
+  </div>
+
+  <div class="inline">
+    <button>Confirm</button>
+    <button>Cancel</button>
+  </div>
+
+  <div class="last update">
+    <small id="database_updated"> Database last updated: ... </small>
+    <script>
+    var b = 'Database last updated: 3/27/21';
+    document.getElementById("database_updated").innerHTML = b;
+    </script>
+  </div>
+  
 </form>
-
-<script>
-var b = 'Database last updated: 3/27/21';
-document.getElementById("database_updated").innerHTML = b;
-
-</script>
 
 </body>
 </html>
