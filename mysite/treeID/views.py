@@ -52,7 +52,7 @@ def get_comment(request):
 
 def index(request):
     ID = str(request.POST.get('query'))
-    fields_to_query = ["id","group_", "leaf_fall", "name", "genus", "species_name", "family", "age_min", "age_max", "height_min", "height_max", "comments"]
+    fields_to_query = ["id","group_", "leaf_fall", "name", "genus", "species_name", "family", "age_min", "age_max", "height_min", "height_max"]
     context_dict = {}
     for column in fields_to_query:
         query = "SELECT "+column+" FROM tree_data_cleaned WHERE id=%s;"
@@ -63,7 +63,13 @@ def index(request):
             raise ValueError('query response malformed')
         response = query_response[0][0]
         context_dict[column] = response
-    return TemplateResponse(request, 'ID_response.html', context_dict)
+    comments = Comment.objects.all()
+    context = {
+            'context_dict': context_dict,
+            'comments': comments
+            }
+
+    return TemplateResponse(request, 'ID_response.html', context)
 
 def comment_handler(request):
     treeID = str(request.POST.get('ID'))
