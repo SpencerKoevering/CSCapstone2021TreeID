@@ -113,10 +113,10 @@ def comment_approval(request):
     print(request.POST)
     for key in list(request.POST):
         if key.isdigit():
-            print(int(key), type(int(key)))
-            approval = bool(request.POST.get(key))
+            approval = True if request.POST.get(key) == 'True' else False
             comment = Comment.objects.get(pk=key)
             comment.approval = approval
+            print(approval, comment.approval)
             comment.save()
     return HttpResponseRedirect('/admin/comment_views')
  
