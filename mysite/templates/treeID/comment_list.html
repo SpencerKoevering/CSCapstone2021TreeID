@@ -1,35 +1,28 @@
 <!DOCTYPE html>
-<<<<<<< HEAD
-<html>
-<body>
-<header>
-  <h1>Whitman College Tree ID</h1>
-  <h2>Comment Form:</h2>
 
-{% for comment, imagepath in comments %}
-    <li>{{entry.ID}} {{comment.comment_text}} {{comment.can_contact}} {{comment.contact_info}} <img src={{imagepath}} > </li>
-{% empty %}
-    <li>No comments yet</li>
-{% endfor %}
-
-</header>
-=======
-
-<html>
 <body>
     <header>
         <h1>Whitman College Tree ID</h1>
         <h2>Comment View:</h2>
     </header>
     <ul>
-        {% for comment in comments %}
-        <li>{{comment.ID}} {{comment.comment_text}} {{comment.contact_info}} </li>
-  
-        <img src= "/media/{{comment.photo}}"/>
+        <form action="/admin/comment_views/" method="post">
+            {% for comment in comments %}
+            <li>{{comment.ID}} {{comment.comment_text}} {{comment.contact_info}}{{comment.approval}}</li>
+
+            <img src="/media/{{comment.photo}}" />
+            {% csrf_token %}
+            {{form}}
+            
+        </form>
         {%empty%}
         <li>No comments yet </li>
         {% endfor %}
+        <form action="/admin/comment_views/" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Approve Selected Comments"><br>
+        </form>
     </ul>
->>>>>>> urls
+
 </body>
 </html>

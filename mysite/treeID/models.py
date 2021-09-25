@@ -7,4 +7,5 @@ class Comment(models.Model):
     can_contact = models.BooleanField()
     contact_info = models.CharField(max_length=50)
     photo = models.ImageField(upload_to='tree_photos')
+    approval = models.BooleanField(default=False)
 

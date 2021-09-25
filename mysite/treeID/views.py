@@ -6,8 +6,10 @@ from django.db import connection
 from django.shortcuts import render
 from .forms import QueryForm
 from .forms import CommentForm
+from .forms import CommentListForm
 from django.template.response import TemplateResponse
 from django.views.generic.list import ListView
+
 
 def redirect(request):
     return HttpResponseRedirect('/treeID/query/')
@@ -78,18 +80,95 @@ def comment_handler(request):
     comment.comment_text = comment_text
     comment.can_contact = can_contact
     comment.contact_info= contact_info
+
     if len(request.FILES) == 1:
         comment.photo= request.FILES["photo"]
     if save:
         comment.save()
     return HttpResponseRedirect('/treeID/query/')
 
+def comment_viewer(request):
+    model = Comment
+    if request.method == 'POST':
+        form = CommentListForm(request.POST)
+        if form.is_valid():
+            return HttpResponseRedirect('/admin/comment_views/')
+        else:
+            form = CommentListForm()
+    form = CommentListForm()
+    comments = Comment.objects.all()
+    context = {
+                'form': form,
+                'comments': comments
+                }
+    return render(request, 'treeID/comment_list.html', context)
+
+def comment_approval(request, id):
+   comment = Comment.objects.get(pk = id)
+   comment.approval = request.POST.get('approval')
+   comment.approval = False
+   comment.save()
+   """
+   comment = Comment()
+   comment.approval = request.POST.get('approval')
+   if comment.approval == "on":
+       comment.approval = False
+   else:
+       comment.approval = False
+   ID = str(request.POST.get('ID'))
+   comment_text = str(request.POST.get('comment'))
+   can_contact = request.POST.get('can_contact')
+   if can_contact == "on":
+       can_contact = True
+   else:
+       can_contact = False
+   contact_info = request.POST.get('contact_info')
+   print(comment.ID)
+   comment.ID = ID
+   comment.comment_text = comment_text
+   comment.can_contact = can_contact
+   comment.contact_info= contact_info
+   #comment.approval = comment.approval
+   comment.save()
+   """
+   return HttpResponseRedirect('/admin/comment_views')
+ 
+"""
+def comment_approval(request):
+    approval = request.POST.get('approval')
+    if approval == "on":
+        approval = True
+    else:
+        approval = False
+    return HttpResponseRedirect('/admin/comment_views/')
+    
+def get_approval(request):
+# if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = CommentListForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            return HttpResponseRedirect('/thanks/')
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = CommentListForm()
+    model = Comment
+    comments = Comment.objects.all()
+    context = {'comments':comments}
+
+    return render(request, 'comment_list.html', context)
+    
 class CommentListView(ListView):
     model = Comment
     def get_context_data(self, *args, **kwargs):
+
         comments = Comment.objects.all()
         context = {'comments': comments}
-        for comment in comments:
-            print(comment.photo)
+
         return context
-    
+    """
