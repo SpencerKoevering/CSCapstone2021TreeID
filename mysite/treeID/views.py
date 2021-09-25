@@ -80,6 +80,7 @@ def comment_handler(request):
     comment.comment_text = comment_text
     comment.can_contact = can_contact
     comment.contact_info= contact_info
+    comment.approval = False
 
     if len(request.FILES) == 1:
         comment.photo= request.FILES["photo"]
@@ -88,7 +89,6 @@ def comment_handler(request):
     return HttpResponseRedirect('/treeID/query/')
 
 def comment_viewer(request):
-    model = Comment
     if request.method == 'POST':
         form = CommentListForm(request.POST)
         if form.is_valid():
@@ -105,10 +105,12 @@ def comment_viewer(request):
 
 def comment_approval(request):
     print(request.POST)
-    for k,v in request.POST.iteritems():
-        if k.isdigit():
-            comment = Comment.objects.get(id = int(k))
-            comment.approval = request.POST.get(bool(v))
+    for key in list(request.POST):
+        if key.isdigit():
+            print(int(key), type(int(key)))
+            approval = bool(request.POST.get(key))
+            comment = Comment.objects.get(pk=key)
+            comment.approval = approval
             comment.save()
     return HttpResponseRedirect('/admin/comment_views')
  
