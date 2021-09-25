@@ -6,19 +6,27 @@
         <h2>Comment View:</h2>
     </header>
     <ul>
-        <form action="/admin/comment_views/" method="post">
+        <form action="/admin/comment_approval/" method="post">
             {% for comment in comments %}
             <li>{{comment.ID}} {{comment.comment_text}} {{comment.contact_info}}{{comment.approval}}</li>
 
             <img src="/media/{{comment.photo}}" />
-            {% csrf_token %}
-            {{form}}
-            
-        </form>
-        {%empty%}
-        <li>No comments yet </li>
-        {% endfor %}
-        <form action="/admin/comment_views/" method="post">
+            {% if comment.approval %}
+            <div>
+                <input type="radio" id="true" name = {{ comment.id }} value="True" checked>
+                <label for="true">Approve</label>
+                <input type="radio" id="false" name = {{ comment.id }} value="False">
+                <label for="false">Deny</label>
+            </div>
+            {% else %}
+            <div>
+                <input type="radio" id="true" name = {{ comment.id }} value="True">
+                <label for="true">Approve</label>
+                <input type="radio" id="false" name = {{ comment.id }} value="False" checked>
+                <label for="false">Deny</label>
+            </div>
+            {% endif %}
+            {% endfor %}
             {% csrf_token %}
             <input type="submit" value="Approve Selected Comments"><br>
         </form>

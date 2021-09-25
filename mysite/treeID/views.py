@@ -66,7 +66,7 @@ def index(request):
     return TemplateResponse(request, 'ID_response.html', context_dict)
 
 def comment_handler(request):
-    ID = str(request.POST.get('ID'))
+    treeID = str(request.POST.get('ID'))
     comment_text = str(request.POST.get('comment'))
     can_contact = request.POST.get('can_contact')
     if can_contact == "on":
@@ -76,7 +76,7 @@ def comment_handler(request):
     contact_info = request.POST.get('contact_info')
     save = request.POST.get('save')
     comment = Comment()
-    comment.ID = ID
+    comment.treeID = treeID
     comment.comment_text = comment_text
     comment.can_contact = can_contact
     comment.contact_info= contact_info
@@ -103,35 +103,14 @@ def comment_viewer(request):
                 }
     return render(request, 'treeID/comment_list.html', context)
 
-def comment_approval(request, id):
-   comment = Comment.objects.get(pk = id)
-   comment.approval = request.POST.get('approval')
-   comment.approval = False
-   comment.save()
-   """
-   comment = Comment()
-   comment.approval = request.POST.get('approval')
-   if comment.approval == "on":
-       comment.approval = False
-   else:
-       comment.approval = False
-   ID = str(request.POST.get('ID'))
-   comment_text = str(request.POST.get('comment'))
-   can_contact = request.POST.get('can_contact')
-   if can_contact == "on":
-       can_contact = True
-   else:
-       can_contact = False
-   contact_info = request.POST.get('contact_info')
-   print(comment.ID)
-   comment.ID = ID
-   comment.comment_text = comment_text
-   comment.can_contact = can_contact
-   comment.contact_info= contact_info
-   #comment.approval = comment.approval
-   comment.save()
-   """
-   return HttpResponseRedirect('/admin/comment_views')
+def comment_approval(request):
+    print(request.POST)
+    for k,v in request.POST.iteritems():
+        if k.isdigit():
+            comment = Comment.objects.get(id = int(k))
+            comment.approval = request.POST.get(bool(v))
+            comment.save()
+    return HttpResponseRedirect('/admin/comment_views')
  
 """
 def comment_approval(request):
