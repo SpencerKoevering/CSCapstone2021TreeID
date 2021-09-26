@@ -1,14 +1,11 @@
 from mysite.settings import BASE_DIR
 from treeID.models import Comment
-from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.db import connection
 from django.shortcuts import render
 from .forms import QueryForm
 from .forms import CommentForm
-from .forms import CommentListForm
 from django.template.response import TemplateResponse
-from django.views.generic.list import ListView
 
 
 def redirect(request):
@@ -93,69 +90,3 @@ def comment_handler(request):
     if save:
         comment.save()
     return HttpResponseRedirect('/treeID/query/')
-
-def comment_viewer(request):
-    if request.method == 'POST':
-        form = CommentListForm(request.POST)
-        if form.is_valid():
-            return HttpResponseRedirect('/admin/comment_views/')
-        else:
-            form = CommentListForm()
-    form = CommentListForm()
-    comments = Comment.objects.all()
-    context = {
-                'form': form,
-                'comments': comments
-                }
-    return render(request, 'treeID/comment_list.html', context)
-
-def comment_approval(request):
-    print(request.POST)
-    for key in list(request.POST):
-        if key.isdigit():
-            approval = True if request.POST.get(key) == 'True' else False
-            comment = Comment.objects.get(pk=key)
-            comment.approval = approval
-            print(approval, comment.approval)
-            comment.save()
-    return HttpResponseRedirect('/admin/comment_views')
- 
-"""
-def comment_approval(request):
-    approval = request.POST.get('approval')
-    if approval == "on":
-        approval = True
-    else:
-        approval = False
-    return HttpResponseRedirect('/admin/comment_views/')
-    
-def get_approval(request):
-# if this is a POST request we need to process the form data
-    if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = CommentListForm(request.POST)
-        # check whether it's valid:
-        if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            return HttpResponseRedirect('/thanks/')
-
-    # if a GET (or any other method) we'll create a blank form
-    else:
-        form = CommentListForm()
-    model = Comment
-    comments = Comment.objects.all()
-    context = {'comments':comments}
-
-    return render(request, 'comment_list.html', context)
-    
-class CommentListView(ListView):
-    model = Comment
-    def get_context_data(self, *args, **kwargs):
-
-        comments = Comment.objects.all()
-        context = {'comments': comments}
-
-        return context
-    """

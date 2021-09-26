@@ -1,6 +1,11 @@
+from __future__ import unicode_literals
 from django.contrib import admin
-from django.db import models
-from django.core.files.storage import FileSystemStorage
+from .models import Comment
 
-class Comments(models.Model):
-    approval = models.BooleanField()
+
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('treeID', 'comment_text', 'can_contact', 'contact_info', 'photo','approval',)
+    list_editable = ('approval',)
+
+
+admin.site.register(Comment, CommentAdmin)
