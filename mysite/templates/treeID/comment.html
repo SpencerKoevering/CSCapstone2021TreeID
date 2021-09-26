@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <header>
+        <h1>Whitman College Tree ID</h1>
+        <h2>Comment Form:</h2>
+    </header>
+
+    <form action="/treeID/comment_confirmation/" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|linebreaks }}
+        <input type="submit" value="Submit">
+    </form>
+
+    <div>
+        <button type="button" onclick="location.href = '/treeID/query'">query</button>
+    </div>
+
+</body>
+</html>
