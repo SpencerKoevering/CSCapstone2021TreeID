@@ -1,0 +1,28 @@
+<html>
+<body>
+    <h2>Whitman Tree Information</h2>
+    {{context_dict.id}}
+    {{context_dict.group_}}
+    {{context_dict.leaf_fall}}
+    {{context_dict.name}}
+    {{context_dict.genus}}
+    {{context_dict.species_name}}
+    {{context_dict.family}}
+    {{context_dict.age_min}}
+    {{context_dict.age_max}}
+    {{context_dict.height_min}}
+    {{context_dict.height_max}}
+
+    {% for comment in comments %}
+    {% ifequal context_dict.id|stringformat:"s" comment.treeID|stringformat:"s" %}
+    {% if comment.approval %}
+    <li>{{comment.comment_text}} </li>
+    <img src="/media/{{comment.photo}}" />
+    {% endif %}
+    {% endifequal %}
+    {% endfor %}
+    <div>
+        <button type="button" onclick="location.href = '/treeID/query'">go back</button>
+    </div>
+</body>
+</html>
