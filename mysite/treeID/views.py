@@ -47,8 +47,15 @@ def get_comment(request):
 
     return render(request, 'comment.html', {'form': form})
 
+def check_input(chars, input, error_content):
+    invalid_chars = chars
+    for i in invalid_chars:
+        if i in input:
+            raise ValueError(error_content)
+
 def index(request):
     ID = str(request.POST.get('query'))
+    check_input([',', '.', ')', '(', '[', ']', '!', '?', ';'], ID, 'ID format invalid')
     fields_to_query = ["id","group_", "leaf_fall", "name", "genus", "species_name", "family", "age_min", "age_max", "height_min", "height_max"]
     context_dict = {}
     for column in fields_to_query:
@@ -70,7 +77,9 @@ def index(request):
 
 def comment_handler(request):
     treeID = str(request.POST.get('ID'))
+    check_input([',', '.', ')', '(', '[', ']', '!', '?', ';'], treeID, 'ID format invalid')
     comment_text = str(request.POST.get('comment'))
+    check_input([')', '(', '[', ']', ';'], comment_text, 'Comment contains illigal characters')
     can_contact = request.POST.get('can_contact')
     if can_contact == "on":
         can_contact = True
