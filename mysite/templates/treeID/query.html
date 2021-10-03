@@ -3,14 +3,14 @@
 <h2>Whitman Tree Information</h2>
 <h3>Look for a small green tag on a tree:</h3>
 <p>*green tag photo here</p>
-<form action="/treeID/query_response/" method="post">
-  {% csrf_token %}
+<form action="/treeID/query_response/" method="get">
+  <!-- {% csrf_token %} -->
   {{ form }}
   <input type="submit" value="Submit"><br>
 </form>
 
 <div>
-  <button onclick="location.href = '/treeID/comment'">comment</button>
+  <button onclick="location.href = '/treeID/comment/'">comment</button>
 </div>
 
 </body>

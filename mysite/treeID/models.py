@@ -8,4 +8,3 @@ class Comment(models.Model):
     contact_info = models.CharField(max_length=50, blank = True)
     photo = models.ImageField(upload_to='tree_photos', blank = True)
     approval = models.BooleanField(default=False)
-

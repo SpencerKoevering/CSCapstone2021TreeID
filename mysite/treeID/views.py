@@ -48,18 +48,18 @@ def get_comment(request):
     return render(request, 'comment.html', {'form': form})
 
 def index(request):
-    ID = str(request.POST.get('query'))
-    fields_to_query = ["id","group_", "leaf_fall", "name", "genus", "species_name", "family", "age_min", "age_max", "height_min", "height_max"]
+    ID = str(request.GET.get('query'))
+    columns = ["id","group_", "leaf_fall", "name", "genus", "species_name", "family", "age_min", "age_max", "height_min", "height_max"]
+    fields_to_query = ','.join(columns)
     context_dict = {}
-    for column in fields_to_query:
-        query = "SELECT "+column+" FROM tree_data_cleaned WHERE id=%s;"
-        cursor = connection.cursor()
-        cursor.execute(query, [ID])
-        query_response = cursor.fetchall()
-        if len(query_response) != 1 or len(query_response[0]) != 1:
-            raise ValueError('query response malformed')
-        response = query_response[0][0]
-        context_dict[column] = response
+    query = "SELECT "+fields_to_query+" FROM tree_data_cleaned WHERE id=%s;"
+    cursor = connection.cursor()
+    cursor.execute(query, [ID])
+    query_response = cursor.fetchall()
+    print(query_response)
+    for i in range(len(columns)):
+        context_dict[columns[i]] = query_response[0][i]
+
     comments = Comment.objects.all()
     context = {
             'context_dict': context_dict,
