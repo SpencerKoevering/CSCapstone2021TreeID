@@ -75,8 +75,8 @@ def index(request):
             }
     return TemplateResponse(request, 'ID_response.html', context)
     
-    fields_to_query = ["id","group_", "leaf_fall", "name", "genus", "species_name", "family", "age_min", "age_max", "height_min", "height_max"]
     context_dict = {}
+<<<<<<< HEAD
     for column in fields_to_query:
         query = "SELECT "+column+" FROM tree_data_cleaned WHERE id=%s;"
         cursor = connection.cursor()
@@ -87,6 +87,18 @@ def index(request):
         response = query_response[0][0]
         context_dict[column] = response
 >>>>>>> input validation using regular expressions as well as url redirects in cases of invalid inputs
+=======
+    query = "SELECT "+fields_to_query+" FROM tree_data_cleaned WHERE id=%s;"
+    cursor = connection.cursor()
+    cursor.execute(query, [ID])
+    query_response = cursor.fetchall()
+    
+    for i in range(len(columns)):
+        context_dict[columns[i]] = query_response[0][i]
+    if not context_dict:
+         return render(request, 'invalid_ID.html')
+
+>>>>>>> fixed to work with what spencer had cleaned up
     comments = Comment.objects.all()
     context = {
             'context_dict': context_dict,
