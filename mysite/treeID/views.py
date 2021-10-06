@@ -54,10 +54,8 @@ def index(request):
     ID = str(request.GET.get('query'))
     columns = ["id","group_", "leaf_fall", "name", "genus", "species_name", "family", "age_min", "age_max", "height_min", "height_max"]
     fields_to_query = ','.join(columns)
-
     ID = ID.capitalize()
     checkID = re.fullmatch('[A-Z]{1}[0-9]{1,3}', ID)
-   
     if not checkID:
         return render(request, 'invalid_ID.html')
     
@@ -71,7 +69,8 @@ def index(request):
         return render(request, 'invalid_ID.html')
     for i in range(len(columns)):
         context_dict[columns[i]] = query_response[0][i]
- 
+    if not context_dict:
+         return render(request, 'invalid_ID.html')
     comments = Comment.objects.all()
     context = {
             'context_dict': context_dict,
