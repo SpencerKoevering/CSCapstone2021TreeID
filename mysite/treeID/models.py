@@ -6,6 +6,6 @@ class Comment(models.Model):
     comment_text = models.TextField(blank = True)
     can_contact = models.BooleanField()
     contact_info = models.CharField(max_length=50, blank = True)
-    photo = models.ImageField(upload_to='tree_photos', blank = True)
+    photo = models.ImageField(upload_to='tree_photos', max_length = 100, blank = True)
     approval = models.BooleanField(default=False)
 
