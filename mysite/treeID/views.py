@@ -9,7 +9,6 @@ from .forms import QueryForm
 from .forms import CommentForm
 from django.template.response import TemplateResponse
 from django.forms.models import model_to_dict
-
 import re
 from PIL import Image
 
@@ -69,6 +68,25 @@ def index(request):
     for field in columns:
             context_dict[field] = values[field]
  
+    comments = Comment.objects.all()
+    context = {
+            'context_dict': context_dict,
+            'comments': comments
+            }
+    return TemplateResponse(request, 'ID_response.html', context)
+    
+    fields_to_query = ["id","group_", "leaf_fall", "name", "genus", "species_name", "family", "age_min", "age_max", "height_min", "height_max"]
+    context_dict = {}
+    for column in fields_to_query:
+        query = "SELECT "+column+" FROM tree_data_cleaned WHERE id=%s;"
+        cursor = connection.cursor()
+        cursor.execute(query, [ID])
+        query_response = cursor.fetchall()
+        if len(query_response) != 1 or len(query_response[0]) != 1:
+            return render(request, 'invalid_ID.html')
+        response = query_response[0][0]
+        context_dict[column] = response
+>>>>>>> input validation using regular expressions as well as url redirects in cases of invalid inputs
     comments = Comment.objects.all()
     context = {
             'context_dict': context_dict,
