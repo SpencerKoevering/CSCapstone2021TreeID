@@ -65,12 +65,16 @@ def index(request):
     cursor.execute(query, [ID])
     query_response = cursor.fetchall()
     
-    if len(query_response) != 1 or len(query_response[0]) != 1:
-        return render(request, 'invalid_ID.html')
+    #if len(query_response[0][0]) != 1:
+        #return render(request, 'invalid_ID.html')
+    #if not context_dict:
+        #return render(request, 'invalid_ID.html')
     for i in range(len(columns)):
-        context_dict[columns[i]] = query_response[0][i]
-    if not context_dict:
-         return render(request, 'invalid_ID.html')
+        try:
+            context_dict[columns[i]] = query_response[0][i]
+        except:
+            return render(request, 'invalid_ID.html')
+   
     comments = Comment.objects.all()
     context = {
             'context_dict': context_dict,
