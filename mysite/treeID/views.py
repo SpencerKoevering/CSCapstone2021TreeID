@@ -1,4 +1,5 @@
 from mysite.settings import BASE_DIR
+from treeID.models import TreeDataFinal
 from treeID.models import Comment
 from django.http import HttpResponseRedirect
 from django.db import connection
@@ -6,6 +7,7 @@ from django.shortcuts import render
 from .forms import QueryForm
 from .forms import CommentForm
 from django.template.response import TemplateResponse
+from django.forms.models import model_to_dict
 
 
 def redirect(request):
@@ -49,23 +51,17 @@ def get_comment(request):
 
 def index(request):
     ID = str(request.GET.get('query'))
-    columns = ["id","group_", "leaf_fall", "name", "genus", "species_name", "family", "age_min", "age_max", "height_min", "height_max"]
-    fields_to_query = ','.join(columns)
+    columns = ["id", "group_field", "leaf_fall", "name", "genus", "species_name", "family", "age_min", "age_max", "height_min", "height_max"]
+    tree = TreeDataFinal.objects.get(id=ID)
     context_dict = {}
-    query = "SELECT "+fields_to_query+" FROM tree_data_cleaned WHERE id=%s;"
-    cursor = connection.cursor()
-    cursor.execute(query, [ID])
-    query_response = cursor.fetchall()
-    print(query_response)
-    for i in range(len(columns)):
-        context_dict[columns[i]] = query_response[0][i]
-
+    values = model_to_dict(tree)
+    for field in columns:
+        context_dict[field] = values[field]
     comments = Comment.objects.all()
     context = {
             'context_dict': context_dict,
             'comments': comments
             }
-
     return TemplateResponse(request, 'ID_response.html', context)
 
 def comment_handler(request):
