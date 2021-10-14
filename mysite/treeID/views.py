@@ -56,6 +56,7 @@ def index(request):
     fields_to_query = ','.join(columns)
     ID = ID.capitalize()
     checkID = re.fullmatch('[A-Z]{1}[0-9]{1,3}', ID)
+    
     if not checkID:
         return render(request, 'invalid_ID.html')
     
@@ -65,16 +66,11 @@ def index(request):
     cursor.execute(query, [ID])
     query_response = cursor.fetchall()
     
-    #if len(query_response[0][0]) != 1:
-        #return render(request, 'invalid_ID.html')
-    #if not context_dict:
-        #return render(request, 'invalid_ID.html')
     for i in range(len(columns)):
         try:
             context_dict[columns[i]] = query_response[0][i]
         except:
             return render(request, 'invalid_ID.html')
-   
     comments = Comment.objects.all()
     context = {
             'context_dict': context_dict,
