@@ -1,5 +1,5 @@
 from mysite.settings import BASE_DIR
-from mysite.settings import MEDIA_ROOT
+from treeID.models import TreeDataFinal
 from treeID.models import Comment
 from django.http import HttpResponseRedirect
 from django.db import connection
@@ -7,8 +7,7 @@ from django.shortcuts import render
 from .forms import QueryForm
 from .forms import CommentForm
 from django.template.response import TemplateResponse
-import re
-from PIL import Image
+from django.forms.models import model_to_dict
 
 def redirect(request):
     return HttpResponseRedirect('/treeID/query/')
@@ -52,31 +51,25 @@ def get_comment(request):
 
 def index(request):
     ID = str(request.GET.get('query'))
-    columns = ["id","group_", "leaf_fall", "name", "genus", "species_name", "family", "age_min", "age_max", "height_min", "height_max"]
-    fields_to_query = ','.join(columns)
+    columns = ["id", "group_field", "leaf_fall", "name", "genus", "species_name", "family", "age_min", "age_max", "height_min", "height_max"]
     ID = ID.capitalize()
     checkID = re.fullmatch('[A-Z]{1}[0-9]{1,3}', ID)
-    
     if not checkID:
         return render(request, 'invalid_ID.html')
-    
+    try:
+        tree = TreeDataFinal.objects.get(id=ID)
+    except:
+        return render(request, 'invalid_ID.html')
     context_dict = {}
-    query = "SELECT "+fields_to_query+" FROM tree_data_cleaned WHERE id=%s;"
-    cursor = connection.cursor()
-    cursor.execute(query, [ID])
-    query_response = cursor.fetchall()
-    
-    for i in range(len(columns)):
-        try:
-            context_dict[columns[i]] = query_response[0][i]
-        except:
-            return render(request, 'invalid_ID.html')
+    values = model_to_dict(tree)
+    for field in columns:
+            context_dict[field] = values[field]
+ 
     comments = Comment.objects.all()
     context = {
             'context_dict': context_dict,
             'comments': comments
             }
-
     return TemplateResponse(request, 'ID_response.html', context)
 
 def comment_handler(request):
