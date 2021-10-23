@@ -9,9 +9,11 @@ class Comment(models.Model):
     contact_info = models.CharField(max_length=50, blank = True)
     photo = models.ImageField(upload_to='tree_photos', max_length = 100, blank = True)
     approval = models.BooleanField(default=False)
+    created_at = models.DateTimeField()
     class Meta:
         verbose_name = 'Comment'
         verbose_name_plural = 'Comments'
+        ordering = ['-created_at']
 
 class TreeDataFinal(models.Model):
 

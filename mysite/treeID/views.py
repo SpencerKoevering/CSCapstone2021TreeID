@@ -11,6 +11,7 @@ from django.template.response import TemplateResponse
 from django.forms.models import model_to_dict
 import re
 from PIL import Image
+from datetime import datetime
 
 def redirect(request):
     return HttpResponseRedirect('/treeID/query/')
@@ -54,7 +55,7 @@ def get_comment(request):
 
 def index(request):
     ID = str(request.GET.get('query'))
-    columns = ["id", "group_field", "leaf_fall", "name", "genus", "species_name", "family", "age_min", "age_max", "height_min", "height_max"]
+    columns = ["id", "group_field", "leaf_fall", "name", "genus", "species_name", "family", "is_champion", "is_memorial", "is_blue_mtn_native", "is_pacific_slope_native", "memorial_person"]
     ID = ID.capitalize()
     checkID = re.fullmatch('[A-Z]{1}[0-9]{1,3}', ID)
     if not checkID:
@@ -73,6 +74,8 @@ def index(request):
             'context_dict': context_dict,
             'comments': comments
             }
+    for comment in comments:
+        print(model_to_dict(comment))
     return TemplateResponse(request, 'ID_response.html', context)
 
 def comment_handler(request):
@@ -103,6 +106,7 @@ def comment_handler(request):
     comment.can_contact = can_contact
     comment.contact_info= contact_info
     comment.approval = False
+    comment.created_at = datetime.now()
 
 
     if len(request.FILES) == 1:
