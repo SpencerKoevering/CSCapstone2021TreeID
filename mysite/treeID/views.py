@@ -17,39 +17,11 @@ def redirect(request):
     return HttpResponseRedirect('/treeID/query/')
 
 def get_query(request):
-    # if this is a POST request we need to process the form data
-    if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = QueryForm(request.POST)
-        # check whether it's valid:
-        if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            return HttpResponseRedirect('/thanks/')
-
-    # if a GET (or any other method) we'll create a blank form
-    else:
-        form = QueryForm()
-
+    form = QueryForm()
     return render(request, 'query.html', {'form': form})
 
 def get_comment(request):
-    # if this is a POST request we need to process the form data
-    if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = CommentForm(request.POST)
-        # check whether it's valid:
-        if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            return HttpResponseRedirect('/thanks/')
-
-    # if a GET (or any other method) we'll create a blank form
-    else:
-        form = CommentForm()
-
+    form = CommentForm()
     return render(request, 'comment.html', {'form': form})
 
 
@@ -67,15 +39,12 @@ def index(request):
     context_dict = {}
     values = model_to_dict(tree)
     for field in columns:
-            context_dict[field] = values[field]
- 
-    comments = Comment.objects.all()
+        context_dict[field] = values[field]
+    comments = Comment.objects.values("treeID", "comment_text", "photo", "created_at", "approval")
     context = {
             'context_dict': context_dict,
             'comments': comments
             }
-    for comment in comments:
-        print(model_to_dict(comment))
     return TemplateResponse(request, 'ID_response.html', context)
 
 def comment_handler(request):

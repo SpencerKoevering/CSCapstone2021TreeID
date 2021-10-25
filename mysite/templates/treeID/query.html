@@ -1,9 +1,22 @@
 <html>
+<head>
+  <style>
+  body {background-color: rgb(0, 40, 104);}
+  h1   {color: white;}
+  h2   {color: white;}
+  h3   {color: white;}
+  p    {color: white;}
+  li    {color: white;}
+  .query_form {
+    color: white;
+  }
+  </style>
+  </head>
 <body>
-<h2>Whitman Tree Information</h2>
+<h2>Whitman College Tree Information</h2>
 <h3>Look for a small green tag on a tree:</h3>
-<p>*green tag photo here</p>
-<form action="/treeID/query_response/" method="get">
+<p>*metal tag photo here</p>
+<form action="/treeID/query_response/" method="get" class="query_form">
   <!-- {% csrf_token %} -->
   {{ form }}
   <input type="submit" value="Submit"><br>

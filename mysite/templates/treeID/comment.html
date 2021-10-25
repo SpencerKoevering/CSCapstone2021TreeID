@@ -1,17 +1,32 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <style>
+        body {background-color: rgb(0, 40, 104);}
+        h1   {color: white;}
+        h2   {color: white;}
+        h3   {color: white;}
+        p    {color: white;}
+        li    {color: white;}
+        .comment_form {
+            color: white;
+        }
+        textarea { vertical-align: top; }​ 
+        </style>
+        </head>
 <body>
     <header>
-        <h1>Whitman College Tree ID</h1>
+        <h1>Whitman College Tree Information</h1>
         <h2>Comment Form:</h2>
     </header>
-
-    <form action="/treeID/comment_confirmation/" method="post" enctype="multipart/form-data">
+    
+    <form action="/treeID/comment_confirmation/" method="post" enctype="multipart/form-data" class="comment_form">
         {% csrf_token %}
-        {{ form|linebreaks }}
+        <table>
+        {{ form.as_table|linebreaks }}
+        </table>
         <input type="submit" value="Submit">
     </form>
-
     <div>
         <button type="button" onclick="location.href = '/treeID/query/'">Go Back</button>
     </div>

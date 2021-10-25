@@ -1,6 +1,16 @@
 <html>
+<head>
+<style>
+body {background-color: rgb(0, 40, 104);}
+h1   {color: white;}
+h2   {color: white;}
+p    {color: white;}
+li    {color: white;}
+</style>
+</head>
 <body>
-    <h2>Whitman Tree Information</h2>
+    <h1>Whitman College Tree Information</h1>
+    <h2>Tree {{context_dict.id}}</h2>
     <p>
     This is Tree {{context_dict.id}}. 
     {% if context_dict.group_%}
@@ -33,15 +43,19 @@
         <p> This tree is native to the Pacific Slope </p>
     {% endif %}
 
+<h2> Comments and Photos</h2>
+
     {% if comments %}
+        <table>
         {% for comment in comments %}
         {% ifequal context_dict.id|stringformat:"s" comment.treeID|stringformat:"s" %}
         {% if comment.approval %}
-        <li>{{comment.comment_text}} </li>
-        <img src="/media/{{comment.photo}}" />
+        <li>{{comment.comment_text}}, {{comment.created_on|date:"D d M Y" }} </li>
+        <img src="/media/{{comment.photo}}"  style="height:300px;" />
         {% endif %}
         {% endifequal %}
         {% endfor %}
+        </table>
     {% else %}
         <p> We don't have any comments or photos for this tree. Help us out by taking a photo and uploading it with a comment! </p>
     {% endif %}
