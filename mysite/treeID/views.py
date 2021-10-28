@@ -40,10 +40,11 @@ def index(request):
     values = model_to_dict(tree)
     for field in columns:
         context_dict[field] = values[field]
-    comments = Comment.objects.values("treeID", "comment_text", "photo", "created_at", "approval")
+    comments = Comment.objects.filter(treeID=ID)
+    commentvalues = comments.values("treeID", "comment_text", "photo", "created_at", "approval")
     context = {
             'context_dict': context_dict,
-            'comments': comments
+            'comments': commentvalues
             }
     return TemplateResponse(request, 'ID_response.html', context)
 
