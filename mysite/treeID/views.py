@@ -81,11 +81,6 @@ def comment_handler(request):
 
     if len(request.FILES) == 1:
         comment.photo= request.FILES["photo"]
-    print(comment.photo)
-    
-    img = Image.open(MEDIA_ROOT+'/tree_photos/'+str(comment.photo))
-    img_resize = img.resize((1980, 1080))
-    img_resize.save(MEDIA_ROOT+'/tree_photos/'+str(comment.photo))
 
     if save:
         comment.save()
