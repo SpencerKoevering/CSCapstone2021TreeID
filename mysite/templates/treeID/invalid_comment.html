@@ -1,8 +1,13 @@
-{% extends "base.html" %}
-{% block title %}Comment Error{% endblock %}
-{%block header%}
-    <h1>Invalid Comment</h1>
-{%endblock%}
-{%block content%}
-    <p>Your comment was malformed and could not be accepted. Please try again.</p>
-{%endblock%}
+<!DOCTYPE html>
+<html>
+<body>
+    <header>
+        <h1>Error: Invalid Input</h1>
+    </header>
+
+    <div>
+        <button onclick="location.href = '/treeID/comment'">go back</button>
+    </div>
+
+</body>
+</html>

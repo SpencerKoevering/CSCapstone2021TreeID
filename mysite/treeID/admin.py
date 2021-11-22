@@ -8,7 +8,7 @@ class CommentAdmin(admin.ModelAdmin):
     list_editable = ('approval',)
 
 class TreeAdmin(admin.ModelAdmin):
-    list_display = ("id", "group_field", "leaf_fall", "name", "genus", "species_name", "family", "age_min", "age_max", "height_min", "height_max", "is_memorial","is_champion","is_blue_mtn_native","is_pacific_slope_native",)
+    list_display = ("id", "group_field", "leaf_fall", "name", "genus", "species_name", "family", "age_min", "age_max", "height_min", "height_max",)
 
 
 admin.site.register(Comment, CommentAdmin)
