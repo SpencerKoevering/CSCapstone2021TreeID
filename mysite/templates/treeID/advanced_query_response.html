@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Advanced Query Response{% endblock %}
+{%block header%}
+    <h2>Advanced Query Response</h2>
+{%endblock%}
+{%block content%}
+    <div id="tree_list">
+        {% for tree in trees %}
+            <div id="tree_list_entry">
+            <a href="/treeID/query_response/?query={{tree.id}}"> <div id="tree_link_box"> <h2 id="tree_link" style="padding: 4px 8px;">{{tree.id}} </h2></div><a>
+            <h3> {{tree.name}}, <i>{{tree.species_name}}</i>. </h3>
+            {% if tree.photo %}
+                <img src="/media/{{tree.photo}}"  style="height:300px;" />
+            {% else %}
+                <p>We don't have a photo of this tree. Help us out and submit one with a comment!</p>
+            {% endif %}
+            <p>latitude: {{tree.latitude}}, longitude: {{tree.longitude}}</p>
+            <p>{% if tree.is_champion %}
+                Champion Tree, 
+                {% endif %}
+                {% if tree.is_blue_mtn_native %}
+                    Blue Mountain Native,
+                {% endif %}
+                {% if tree.is_pacific_slope_native %}
+                    Pacific Slope Native
+                {% endif %}
+                {% if tree.is_champion or tree.is_blue_mtn_native or tree.is_pacific_slop_native%}
+                    .
+                {% endif %}
+            </p>
+            {% if tree.is_memorial %}
+                <p> This is a memorial tree for {{tree.memorial_person}}. </p>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

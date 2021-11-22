@@ -1,15 +1,15 @@
 {% extends "base.html" %}
-{% block title %}Comment{% endblock %}
-{% block navc %}active{% endblock %}
+{% block title %}Advanced Query{% endblock %}
+{% block nava %}active{% endblock %}
 {%block header%}
-        <h2>Comment Form</h2>
+      <h2>Advanced Query Form</h2>
 {%endblock%}
 {%block content%}
-    <form action="/treeID/comment_confirmation/" method="post" enctype="multipart/form-data" class="comment_form">
+    <form action="/treeID/advanced_query_response/" method="get" enctype="multipart/form-data" class="adv_query_form">
         {% csrf_token %}
         <div class = "form_table_div">
             <table>
-                {{ form.as_table }}
+            {{ form.as_table }}
             </table>
             <input type="submit" value="Submit" style="float: right;">
         </div>
