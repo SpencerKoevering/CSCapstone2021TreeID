@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% block title %}Advanced Query Response{% endblock %}
 {%block header%}
-    <h2>Advanced Query Response</h2>
+    <h2 class="hdr2">Advanced Query Response</h2>
 {%endblock%}
 {%block content%}
     <div id="tree_list">
         {% for tree in trees %}
             <div id="tree_list_entry">
-            <a href="/treeID/query_response/?query={{tree.id}}"> <div id="tree_link_box"> <h2 id="tree_link" style="padding: 4px 8px;">{{tree.id}} </h2></div><a>
+            <a href="/treeID/query_response/?query={{tree.id}}" id="tree_link"> <div id="tree_link_box"> <h2 style="padding: 4px 8px;">{{tree.id}} </h2></div></a>
             <h3> {{tree.name}}, <i>{{tree.species_name}}</i>. </h3>
             {% if tree.photo %}
                 <img src="/media/{{tree.photo}}"  style="height:300px;" />
