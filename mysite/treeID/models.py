@@ -21,6 +21,9 @@ class TreeDataFinal(models.Model):
         YES = 'yes'
         NO = 'no'
         NEXT = 'next'
+    class leafFall(Enum):
+        EVERGREEN = 'Evergreen'
+        DECIDUOUS = 'Deciduous'
     
     waypoint = models.IntegerField(blank=True, null=True)
     latitude = models.FloatField(blank=True, null=True)
@@ -30,7 +33,7 @@ class TreeDataFinal(models.Model):
     zone = models.TextField(blank=True, null=True)
     number = models.IntegerField(blank=True, null=True)
     group_field = models.TextField(db_column='group_', blank=True, null=True)  # Field renamed because it ended with '_'.
-    leaf_fall = models.TextField(blank=True, null=True)
+    leaf_fall = models.TextField(choices=[(tag, tag.value) for tag in leafFall], blank=True, null=True)
     name = models.TextField(blank=True, null=True)
     genus = models.TextField(blank=True, null=True)
     species_name = models.TextField(blank=True, null=True)

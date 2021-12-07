@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {background-color: rgb(0, 40, 104);}
+        h1   {color: white;}
+        .hdr2   {color: white;}
+        h3   {color: white;}
+        h4   {color: white;}
+        p    {color: white;}
+        li    {color: white;}
+        #tree_list{
+            width: 40em;
+            padding: 4px 8px;
+        }
+        #tree_list_entry{
+            padding-bottom: 25px;
+        }
+        #tree_link_box {
+            background-color: #333;
+        }
+        #tree_link_box:hover {
+            background-color: darkolivegreen;
+        }
+        #tree_link:link{
+            text-decoration: none;
+            color: white;
+        }
+
+        #tree_link:visited{
+            text-decoration: none;
+            color: #7b68ee;
+        }
+        #id_response {
+            width: 40em;
+            padding: 4px 8px;
+        }
+        .header_box {
+            background-color: #333;
+        }
+        .form_table_div{
+            width: 25em;
+            padding: 4px 8px;
+        }
+        .query_form {
+            color: white;
+        }
+        .comment_form {
+            color: white;
+        }
+        .adv_query_form {
+            color: white;
+        }
+        #navigation_bar {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        .bar_item {
+        float: left;
+        }
+
+        .bar_item a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        }
+
+        .bar_item:hover:not(.active) {
+        background-color: #111;
+        }
+
+        .active {
+        background-color: #04AA6D;
+        }
+        </style>
+    <title>{% block title %}Base{% endblock %}</title>
+</head>
+
+<body>
+    {% block sidebar %}
+    <ul id="navigation_bar">
+        <li class="bar_item {% block navq %}{% endblock navq %}"><a class="bar_link" href="/treeID/query/">Query</a></li>
+        <li class="bar_item {% block nava %}{% endblock nava %}"><a class="bar_link" href="/treeID/advanced_query/">Advanced Query</a></li>
+        <li class="bar_item {% block navc %}{% endblock navc %}"><a class="bar_link" href="/treeID/comment/">Comment</a></li>
+    </ul> 
+    {% endblock sidebar%}
+    <h1>Whitman College Tree Information</h1>
+    {% block header %}
+    {% endblock header %}
+    {% block content %}
+    {% endblock content %}
+</body>
+</html>

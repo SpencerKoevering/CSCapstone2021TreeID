@@ -1,16 +1,9 @@
-<html>
-<head>
-<style>
-body {background-color: rgb(0, 40, 104);}
-h1   {color: white;}
-h2   {color: white;}
-p    {color: white;}
-li    {color: white;}
-</style>
-</head>
-<body>
-    <h1>Whitman College Tree Information</h1>
-    <h2>Tree {{context_dict.id}}</h2>
+{% extends "base.html" %}
+{% block title %}Tree {{context_dict.id}}{% endblock %}
+
+{%block content%}
+<div id="id_response">
+    <div class="header_box"><h2 class="hdr2" style="padding: 4px 8px;">Tree {{context_dict.id}}</h2></div>
     <p>
     This is Tree {{context_dict.id}}. 
     {% if context_dict.group_%}
@@ -29,12 +22,18 @@ li    {color: white;}
         It is from the family <i>{{context_dict.family}}</i>.
     {% endif %}
     </p>
-
+    {% if context_dict.height_min is not None and context_dict.height_max is not None %}
+        {% if context_dict.height_min == context_dict.height_max%}
+            <p>This tree is around {{context_dict.height_min}} feet tall.</p>
+        {% else %}
+            <p>This tree is between {{context_dict.height_min}} and {{context_dict.height_max}} feet tall.</p>
+        {% endif %}
+    {% endif %}
     {% if context_dict.is_champion %}
         <p> This is Champion Tree </p>
     {% endif %}
     {% if context_dict.is_memorial %}
-        <p> This is memorial tree for {{context_dict.memorial_person}} </p>
+        <p> This is a memorial tree for {{context_dict.memorial_person}} </p>
     {% endif %}
     {% if context_dict.is_blue_mtn_native %}
         <p> This tree is native to the Blue Mountains </p>
@@ -43,24 +42,23 @@ li    {color: white;}
         <p> This tree is native to the Pacific Slope </p>
     {% endif %}
 
-<h2> Comments and Photos</h2>
+    <div class="header_box"><h2 class="hdr2" style="padding: 4px 8px;"> Comments and Photos</h2></div>
 
     {% if comments %}
         <table>
         {% for comment in comments %}
-        {% ifequal context_dict.id|stringformat:"s" comment.treeID|stringformat:"s" %}
-        {% if comment.approval %}
-        <li>{{comment.comment_text}}, Submitted: {{comment.created_at|date:"D d M Y" }} </li>
-        <img src="/media/{{comment.photo}}"  style="height:300px;" />
-        {% endif %}
-        {% endifequal %}
+            {% ifequal context_dict.id|stringformat:"s" comment.treeID|stringformat:"s" %}
+                <img src="/media/{{comment.photo}}"  style="height:300px;" />
+                {% if comment.comment_text %}
+                <li style = "list-style-type: none;">{{comment.comment_text}}, Submitted: {{comment.created_at|date:"D d M Y" }} </li>
+                {% else %}
+                <li style = "list-style-type: none;"> Submitted: {{comment.created_at|date:"D d M Y" }} </li>
+                {% endif %}
+            {% endifequal %}
         {% endfor %}
         </table>
     {% else %}
         <p> We don't have any comments or photos for this tree. Help us out by taking a photo and uploading it with a comment! </p>
     {% endif %}
-    <div>
-        <button type="button" onclick="location.href = '/treeID/query/'">go back</button>
-    </div>
-</body>
-</html>
+</div>
+{% endblock %}
