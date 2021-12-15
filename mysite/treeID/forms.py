@@ -21,7 +21,7 @@ class QueryForm2(forms.Form):
 
 class CommentForm(forms.Form):
 	ID = forms.CharField(label='Tree ID', max_length=5)
-	comment = forms.CharField(label='Comments:', max_length=5000, required=False,  widget=forms.Textarea(attrs={'placeholder': '', 'rows': 4, 'cols': 25}))
+	comment = forms.CharField(label='Comments:', max_length=5000, required=False,  widget=forms.Textarea(attrs={'placeholder': '', 'rows': 8, 'cols': 35}))
 	photo = forms.ImageField(label='Photos:', required=False)
 	can_contact = forms.BooleanField(label='Can we contact you for further comment?', required = False)
-	contact_info = forms.EmailField(label='Email Address:', max_length=25, required=False)
+	contact_info = forms.EmailField(label='Email Address:', max_length=50, widget=forms.TextInput(attrs = {'size' : 35}), required=False)

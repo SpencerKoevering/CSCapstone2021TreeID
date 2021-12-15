@@ -105,7 +105,7 @@ def index2(request):
         treedata=treedata.filter(is_blue_mtn_native=bl_nativei)
     if not pc_nativei == '':
         treedata=treedata.filter(is_pacific_slope_native=pc_nativei)
-
+    treedata=treedata.order_by('zone', 'number')
     trees= list(treedata.values("id", "group_field", "latitude", "longitude", "leaf_fall", "name", "genus", "species_name", "family", "is_champion", "is_memorial", "is_blue_mtn_native", "is_pacific_slope_native", "memorial_person"))
 
     for tree in trees:
