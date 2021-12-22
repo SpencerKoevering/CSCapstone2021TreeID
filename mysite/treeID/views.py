@@ -35,7 +35,7 @@ def index(request):
     if not form.is_valid():
         return render(request, 'invalid_ID.html')
     ID = str(request.GET.get('query'))
-    columns = ["id", "group_field", "leaf_fall", "name", "genus", "species_name", "family", "is_champion", "is_memorial", "is_blue_mtn_native", "is_pacific_slope_native", "memorial_person", "height_min", "height_max"]
+    columns = ["id", "group_field", "latitude", "longitude", "leaf_fall", "name", "genus", "species_name", "family", "is_champion", "is_memorial", "is_blue_mtn_native", "is_pacific_slope_native", "memorial_person", "height_min", "height_max"]
     ID = ID.capitalize()
     checkID = re.fullmatch('[A-Z]{1}[0-9]{1,3}', ID)
     if not checkID:
