@@ -74,8 +74,6 @@ def index2(request):
     bl_nativei = request.GET.get('bl_native')
     pc_nativei = request.GET.get('pc_native')
 
-    print()
-
     treedata = TreeDataFinal.objects
     if not namei == '':
         treedata=treedata.filter(name__icontains=namei)
