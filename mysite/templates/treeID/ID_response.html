@@ -54,7 +54,7 @@
                 <img src="/media/{{comment.photo}}"  style="height:300px;" />
                 {% endif %}
                 {% if comment.comment_text %}
-                <li style = "list-style-type: none;">{{comment.comment_text}}, Submitted: {{comment.created_at|date:"D d M Y" }} </li>
+                <li style = "list-style-type: none;">{{comment.comment_text}} Submitted: {{comment.created_at|date:"D d M Y" }} </li>
                 {% else %}
                 <li style = "list-style-type: none;"> Submitted: {{comment.created_at|date:"D d M Y" }} </li>
                 {% endif %}
