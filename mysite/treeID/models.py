@@ -17,13 +17,21 @@ class Comment(models.Model):
 
 class TreeDataFinal(models.Model):
 
-    class stakedChoice(Enum):   # A subclass of Enum
-        YES = 'yes'
-        NO = 'no'
-        NEXT = 'next'
-    class leafFall(Enum):
-        EVERGREEN = 'Evergreen'
-        DECIDUOUS = 'Deciduous'
+    YES = 'yes'
+    NO = 'no'
+    NEXT = 'next'
+
+    staked_choices=[
+        (YES, 'Yes'),
+        (NO, 'No'),
+        (NEXT, 'Next')
+    ]
+    EVERGREEN = 'Deciduous'
+    DECIDUOUS = 'Evergreen'
+    leaf_fall_choices = [
+        (EVERGREEN, 'Evergreen'),
+        (DECIDUOUS, 'Deciduous')
+    ]
     
     waypoint = models.IntegerField(blank=True, null=True)
     latitude = models.FloatField(blank=True, null=True)
@@ -33,7 +41,7 @@ class TreeDataFinal(models.Model):
     zone = models.TextField(blank=True, null=True)
     number = models.IntegerField(blank=True, null=True)
     group_field = models.TextField(db_column='group_', blank=True, null=True)  # Field renamed because it ended with '_'.
-    leaf_fall = models.TextField(choices=[(tag, tag.value) for tag in leafFall], blank=True, null=True)
+    leaf_fall = models.TextField(choices=leaf_fall_choices, blank=True, null=True)
     name = models.TextField(blank=True, null=True)
     genus = models.TextField(blank=True, null=True)
     species_name = models.TextField(blank=True, null=True)
@@ -56,7 +64,7 @@ class TreeDataFinal(models.Model):
     is_memorial = models.BooleanField(blank=True, null=True)
     is_blue_mtn_native = models.BooleanField(blank=True, null=True)
     is_pacific_slope_native = models.BooleanField(blank=True, null=True)
-    staked = models.TextField(choices=[(tag, tag.value) for tag in stakedChoice], blank=True, null=True)
+    staked = models.TextField(choices=staked_choices, blank=True, null=True)
     memorial_person = models.TextField(blank=True, null=True)
     class Meta:
         verbose_name = 'Tree Data'
