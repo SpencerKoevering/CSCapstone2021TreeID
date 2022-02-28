@@ -8,10 +8,10 @@
     <form action="/treeID/comment_confirmation/" method="post" enctype="multipart/form-data" class="comment_form">
         {% csrf_token %}
         <div class = "form_table_div">
-            <table>
+            <table style="display : inline-table">
                 {{ form.as_table }}
             </table>
-            <input type="submit" value="Submit" style="float: right;">
+            <input type="submit" value="Submit" style="float: bottom; vertical-align: bottom;">
         </div>
     </form>
 {% endblock %}

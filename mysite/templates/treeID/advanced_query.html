@@ -8,10 +8,10 @@
     <form action="/treeID/advanced_query_response/" method="get" enctype="multipart/form-data" class="adv_query_form">
         {% csrf_token %}
         <div class = "form_table_div">
-            <table>
+            <table style="display : inline-table">
             {{ form.as_table }}
             </table>
-            <input type="reset" style="float: left;">  <input type="submit" value="Submit" style="float: right;">
+            <input type="reset" style="float: bottom; vertical-align: bottom;">  <input type="submit" value="Submit" style="float: bottom; vertical-align: bottom;">
         </div>
     </form>
 {% endblock %}

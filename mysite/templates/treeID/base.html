@@ -38,10 +38,7 @@
         .header_box {
             background-color: #333;
         }
-        .form_table_div{
-            width: 100%;
-            padding: 4px 8px;
-        }
+
         .query_form {
             color: white;
         }
@@ -78,8 +75,32 @@
         .active {
         background-color: #04AA6D;
         }
-        .treephoto {width: 100%;}
-        .thumbnail {width: 30%;}
+
+        .form_table_div{
+            width: 100%;
+            padding: 4px 8px;
+        }
+        
+        .treephoto {width: 100%; max-width:max-content;}
+        .thumbnail {width: 100%; max-width:max-content;}
+
+        @media screen and (min-width : 600px){
+            /* .form_table_div{
+                width: 30%;
+                padding: 4px 8px;
+            } */
+            .treephoto {width: 50%; max-width:max-content;}
+            .thumbnail {width: 30%; max-width:max-content;}
+        }
+        @media screen and (min-width : 768px){
+            /* .form_table_div{
+                width: 30%;
+                padding: 4px 8px;
+            } */
+            .treephoto {width: 50%; max-width:max-content;}
+            .thumbnail {width: 30%; max-width:max-content;}
+        }
+
         </style>
     <title>{% block title %}Base{% endblock %}</title>
 </head>
