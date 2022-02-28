@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Tree {{context_dict.id}}{% endblock %}
+{% load tz %}
 
 {%block content%}
 <div id="id_response">
@@ -58,6 +59,13 @@
                 {% else %}
                 <li style = "list-style-type: none;"> Submitted: {{comment.created_at|date:"D d M Y" }} </li>
                 {% endif %}
+                {% timezone "US/Pacific" %}
+                    {% if comment.comment_text %}
+                        <li style = "list-style-type: none;">{{comment.comment_text}} Submitted: {{comment.created_at|date:"h:i A e, d M Y"}} </li>
+                    {% else %}
+                        <li style = "list-style-type: none;"> Submitted: {{comment.created_at|date:"h:i A e, d M Y"}} </li>
+                    {% endif %}
+                {% endtimezone %}
                 </div>
             {% endifequal %}
         {% endfor %}
