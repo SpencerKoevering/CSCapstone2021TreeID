@@ -52,7 +52,12 @@
             {% ifequal context_dict.id|stringformat:"s" comment.treeID|stringformat:"s" %}
                 <div style="padding: 20px 10px;">
                 {% if comment.photo %}
-                    <img src="/media/{{comment.photo}}"  style="height:300px;" />
+                <img src="/media/{{comment.photo}}"  class="treephoto" />
+                {% endif %}
+                {% if comment.comment_text %}
+                <li style = "list-style-type: none;">{{comment.comment_text}}, Submitted: {{comment.created_at|date:"D d M Y" }} </li>
+                {% else %}
+                <li style = "list-style-type: none;"> Submitted: {{comment.created_at|date:"D d M Y" }} </li>
                 {% endif %}
                 {% timezone "US/Pacific" %}
                     {% if comment.comment_text %}

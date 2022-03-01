@@ -10,7 +10,7 @@
             <a href="/treeID/query_response/?query={{tree.id}}" id="tree_link"> <div id="tree_link_box"> <h2 style="padding: 4px 8px;">{{tree.id}} </h2></div></a>
             <h3> {{tree.name}}, <i>{{tree.species_name}}</i>. </h3>
             {% if tree.photo %}
-                <img src="/media/{{tree.photo}}"  style="height:300px;" />
+                <img src="/media/{{tree.photo}}"  class="thumbnail" />
             {% else %}
                 <p>We don't have a photo of this tree. Help us out and submit one with a comment!</p>
             {% endif %}

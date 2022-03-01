@@ -10,11 +10,11 @@
         p    {color: white;}
         li    {color: white;}
         #tree_list{
-            width: 40em;
-            padding: 4px 8px;
+            width: 100%;
+            padding: 0px 4px 0px 4px;
         }
         #tree_list_entry{
-            padding-bottom: 25px;
+            padding-bottom: 10px;
         }
         #tree_link_box {
             background-color: #333;
@@ -32,16 +32,13 @@
             color: #7b68ee;
         }
         #id_response {
-            width: 40em;
+            width: 100%;
             padding: 4px 8px;
         }
         .header_box {
             background-color: #333;
         }
-        .form_table_div{
-            width: 25em;
-            padding: 4px 8px;
-        }
+
         .query_form {
             color: white;
         }
@@ -78,6 +75,32 @@
         .active {
         background-color: #04AA6D;
         }
+
+        .form_table_div{
+            width: 100%;
+            padding: 4px 8px;
+        }
+        
+        .treephoto {width: 100%; max-width:max-content;}
+        .thumbnail {width: 100%; max-width:max-content;}
+
+        @media screen and (min-width : 600px){
+            /* .form_table_div{
+                width: 30%;
+                padding: 4px 8px;
+            } */
+            .treephoto {width: 50%; max-width:max-content;}
+            .thumbnail {width: 30%; max-width:max-content;}
+        }
+        @media screen and (min-width : 768px){
+            /* .form_table_div{
+                width: 30%;
+                padding: 4px 8px;
+            } */
+            .treephoto {width: 50%; max-width:max-content;}
+            .thumbnail {width: 30%; max-width:max-content;}
+        }
+
         </style>
     <title>{% block title %}Base{% endblock %}</title>
 </head>
