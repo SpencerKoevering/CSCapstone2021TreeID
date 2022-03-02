@@ -63,7 +63,7 @@ def index(request):
 def index2(request):
     form = QueryForm2(request.GET)
     if not form.is_valid():
-        return render(request, 'invalid_query.html')
+        return render(request, 'invalid_input.html')
     namei = str(request.GET.get('name'))
     zonei = str(request.GET.get('zone'))
     leaf_falli = request.GET.get('leaf_fall')
