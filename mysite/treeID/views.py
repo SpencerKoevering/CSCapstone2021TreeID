@@ -61,9 +61,12 @@ def index(request):
     return TemplateResponse(request, 'ID_response.html', context)
 
 def index2(request):
+    queryContext = {
+        "invalid_input" : "Your query was malformed and could not be run. Please try again.",
+     }
     form = QueryForm2(request.GET)
     if not form.is_valid():
-        return render(request, 'invalid_input.html')
+        return render(request, 'invalid_input.html', queryContext)
     namei = str(request.GET.get('name'))
     zonei = str(request.GET.get('zone'))
     leaf_falli = request.GET.get('leaf_fall')
