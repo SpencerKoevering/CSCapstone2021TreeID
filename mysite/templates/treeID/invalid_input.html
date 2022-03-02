@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block title %}Query Error{% endblock %}
 {%block header%}
-    <h2 class="hdr2">Invalid Query</h2>
+    <h2 class="hdr2">Invalid Input</h2>
 {%endblock%}
 {%block content%}
-    <p>Your query was malformed and could not be run. Please try again.</p>
+    <p>{{ invalid_input }}</p>
 {%endblock%}

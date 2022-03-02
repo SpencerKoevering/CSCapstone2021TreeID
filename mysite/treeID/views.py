@@ -14,6 +14,7 @@ from PIL import Image
 from datetime import datetime
 from django.db.models import Count, F, Value
 
+
 def redirect(request):
     return HttpResponseRedirect('/treeID/query/')
 
@@ -31,19 +32,22 @@ def get_comment(request):
 
 
 def index(request):
+    queryContext = {
+        "invalid_input" : "Your query was malformed and could not be run. Please try again.",
+     }
     form= QueryForm(request.GET)
     if not form.is_valid():
-        return render(request, 'invalid_ID.html')
+        return render(request, 'invalid_input.html', queryContext)
     ID = str(request.GET.get('query'))
     columns = ["id", "group_field", "latitude", "longitude", "leaf_fall", "name", "genus", "species_name", "family", "is_champion", "is_memorial", "is_blue_mtn_native", "is_pacific_slope_native", "memorial_person", "height_min", "height_max"]
     ID = ID.capitalize()
     checkID = re.fullmatch('[A-Z]{1}[0-9]{1,3}', ID)
     if not checkID:
-        return render(request, 'invalid_query.html')
+        return render(request, 'invalid_input.html', queryContext)
     try:
         tree = TreeDataFinal.objects.get(id=ID)
     except:
-        return render(request, 'invalid_ID.html')
+        return render(request, 'invalid_input.html', queryContext)
     context_dict = {}
     values = model_to_dict(tree)
     for field in columns:
@@ -52,7 +56,7 @@ def index(request):
     commentvalues = comments.values("treeID", "comment_text", "photo", "created_at")
     context = {
             'context_dict': context_dict,
-            'comments': commentvalues
+            'comments': commentvalues,
             }
     return TemplateResponse(request, 'ID_response.html', context)
 
@@ -116,19 +120,22 @@ def index2(request):
     return TemplateResponse(request, 'advanced_query_response.html', {"trees":trees})
 
 def comment_handler(request):
+    context = {
+        "invalid_input"  : "Your comment was malformed and could not be accepted. Please try again.",
+    }
     form= CommentForm(request.POST)
     if not form.is_valid():
-        return render(request, 'invalid_comment.html')
+        return render(request, 'invalid_input.html', context)
 
     treeID = str(request.POST.get('ID'))
     checkID = re.fullmatch('[A-Z]{1}[0-9]{1,3}', treeID)
    
     if not checkID:
-        return render(request, 'invalid_comment.html')
+        return render(request, 'invalid_input.html', context)
     comment_text = str(request.POST.get('comment'))
     checkComment = re.fullmatch("^[a-zA-Z0-9 ,.?!-]*$", comment_text)
     if not checkComment:
-        return render(request, 'invalid_comment.html')
+        return render(request, 'invalid_input.html', context)
     can_contact = request.POST.get('can_contact')
     if can_contact == "on":
         can_contact = True
@@ -138,7 +145,7 @@ def comment_handler(request):
     checkEmail = re.fullmatch('^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$', contact_info)
     if can_contact:
         if not checkEmail:
-            return render(request, 'invalid_comment.html')
+            return render(request, 'invalid_input.html', context)
 
     comment = Comment()
     comment.treeID = treeID
@@ -148,8 +155,15 @@ def comment_handler(request):
     comment.approval = False
     comment.created_at = datetime.now()
 
-
+    photoContext = context = {
+        "invalid_input"  :  "Please convert to a valid format (JPEG, PNG) before attempting to submit again.",
+    }
     if len(request.FILES) == 1:
         comment.photo= request.FILES["photo"]
+    acceptedFormat = ".jpg.png.PNGJPEG.JPGjpeg"
+    imgstr = str(comment.photo)
+    fileType = imgstr[-4:]
+    if fileType not in acceptedFormat:
+        return render(request, 'invalid_input.html', photoContext)
     comment.save()
     return HttpResponseRedirect('/treeID/query/')
